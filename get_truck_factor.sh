@@ -4,7 +4,8 @@ GIT_REPO=$1
 GIT_NAME=$2
 
 
-mkdir ./temp
+rm -rf "./temp"
+
 git clone "$GIT_REPO" "./temp" &> /dev/null
 
 ./commit_log_script.sh "./temp" &> /dev/null

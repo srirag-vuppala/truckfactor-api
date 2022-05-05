@@ -14,7 +14,8 @@ app.get('/truck', (req, res) => {
     exec(cmd, function(error, stdout, stderr) {
       if (!error){
         //things worked
-        res.send(stdout);
+        let output = stdout.split("\n");
+        res.send(output);
       }
       else {
         //failed
