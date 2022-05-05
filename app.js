@@ -33,7 +33,14 @@ app.get('/truck', (req, res) => {
     exec(cmd, function(error, stdout, stderr) {
       if (!error){
         //things worked
-        let output = stdout.split("\n").slice(5);
+        let indexer = 0;
+        for (const [idx, item] of stdout.split("\n").entries()){
+          if (item.split(' ')[0] === 'TF') {
+            indexer = idx;
+            break;
+          }
+        }
+        let output = stdout.split("\n").slice(indexer);
         res.send(form_result(output));
       }
       else {
