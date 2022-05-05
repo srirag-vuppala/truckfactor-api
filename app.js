@@ -34,7 +34,7 @@ app.get('/truck', (req, res) => {
       if (!error){
         //things worked
         let indexer = 0;
-        for (const [idx, item] of stdout.split("\n").entries()){
+        for (let [idx, item] of stdout.split("\n").entries()){
           if (item.split(' ')[0] === 'TF') {
             indexer = idx;
             break;
