@@ -10,7 +10,6 @@ function get_name(url){
 
 function form_result(data){
 	data = data.filter(e => { return e !== '';})
-  console.log(data)
   let TF = data[0].split(" ")[2]
   let coverage = (data[0].split(" ").pop()).slice(0,4)
   let tf_authors = []
@@ -22,7 +21,8 @@ function form_result(data){
   let tf_result = {
     'tf': TF,
     'coverage': coverage,
-    'tf_authors': tf_authors
+    'tf_authors': tf_authors,
+    'raw_data': data
   }
   return tf_result
 }
