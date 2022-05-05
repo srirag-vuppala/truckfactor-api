@@ -25,6 +25,11 @@ app.get('/truck', (req, res) => {
     })
 })
 
+
+app.get('/', (req, res) => {
+  res.send("server is up")
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
