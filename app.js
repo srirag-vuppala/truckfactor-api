@@ -8,14 +8,33 @@ function get_name(url){
   return url.split("/").slice(-2).join('/')
 }
 
+function form_result(data){
+	data = data.filter(e => { return e !== '';})
+  console.log(data)
+  let TF = data[0].split(" ")[2]
+  let coverage = (data[0].split(" ").pop()).slice(0,4)
+  let tf_authors = []
+  data.slice(1).forEach((element) => {
+  	let temp = element.split(";")
+    tf_authors.push({'dev': temp[0], 'num_files': temp[1], 'percentage': temp[2]})
+  }) 
+  
+  let tf_result = {
+    'tf': TF,
+    'coverage': coverage,
+    'tf_authors': tf_authors
+  }
+  return tf_result
+}
+
 app.get('/truck', (req, res) => {
     let url = req.query.giturl;
     let cmd = "./get_truck_factor.sh "+url+" "+get_name(url)
     exec(cmd, function(error, stdout, stderr) {
       if (!error){
         //things worked
-        let output = stdout.split("\n");
-        res.send(output);
+        let output = stdout.split("\n").slice(5, 8);
+        res.send(form_result(output));
       }
       else {
         //failed
