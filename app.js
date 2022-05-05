@@ -33,7 +33,7 @@ app.get('/truck', (req, res) => {
     exec(cmd, function(error, stdout, stderr) {
       if (!error){
         //things worked
-        let output = stdout.split("\n").slice(5, 8);
+        let output = stdout.split("\n").slice(5);
         res.send(form_result(output));
       }
       else {
