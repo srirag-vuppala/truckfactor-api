@@ -1,8 +1,25 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require('cors');
 
 var exec = require('child_process').exec;
+
+var allowedOrigins = ['http://localhost:3000',
+                      'https://dependencyvis.herokuapp.com/', 'https://dependencyvis-test.herokuapp.com/'];
+
+app.use(cors({
+  origin: function(origin, callback){    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);    
+    if(allowedOrigins.indexOf(origin) === -1){
+    var msg = 'The CORS policy for this site does not ' +
+              'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }    
+    return callback(null, true);
+  }
+}));
 
 function get_name(url){
   return url.split("/").slice(-2).join('/')
